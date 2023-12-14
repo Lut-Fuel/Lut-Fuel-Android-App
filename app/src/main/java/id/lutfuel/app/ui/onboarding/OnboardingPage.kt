@@ -29,7 +29,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,14 +48,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import id.lutfuel.app.R
 import id.lutfuel.app.core.theme.LutFuelColor
 import id.lutfuel.app.core.theme.LutFuelTheme
-import id.lutfuel.app.destinations.BottomNavBarPageDestination
+import id.lutfuel.app.ui.destinations.BottomNavBarPageDestination
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -80,18 +81,11 @@ fun OnboardingPage(
             }
         }
 
-    val auth = viewModel.firebaseAuth
-    DisposableEffect(key1 = auth) {
-        val authStateListener = FirebaseAuth.AuthStateListener { authState ->
-            if (authState.currentUser != null) {
-                navigator.popBackStack()
-                navigator.navigate(BottomNavBarPageDestination())
-            }
-        }
-        auth.addAuthStateListener(authStateListener)
-
-        onDispose {
-            auth.removeAuthStateListener(authStateListener)
+    val isSignedIn by viewModel.isSignedIn.collectAsState()
+    LaunchedEffect(isSignedIn) {
+        if (isSignedIn) {
+            navigator.popBackStack()
+            navigator.navigate(BottomNavBarPageDestination())
         }
     }
 

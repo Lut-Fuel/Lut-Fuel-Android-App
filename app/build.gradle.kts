@@ -5,6 +5,7 @@ plugins {
     kotlin("kapt")
     id("com.google.devtools.ksp") version "1.9.21-1.0.15"
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -42,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -93,6 +95,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Google Maps
+    implementation("com.google.maps.android:maps-compose:4.3.0")
 }
 
 kapt {

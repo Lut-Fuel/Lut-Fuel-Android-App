@@ -1,31 +1,39 @@
 package id.lutfuel.app.ui.onboarding
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import id.lutfuel.app.data.repository.LutFuelRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     internal val firebaseAuth: FirebaseAuth,
-    private val app: Application,
-    val googleSignInClient: GoogleSignInClient
+    val googleSignInClient: GoogleSignInClient,
+    private val repository: LutFuelRepository
 ) : ViewModel() {
+    private val _isSignedIn = MutableStateFlow(false)
+    val isSignedIn: StateFlow<Boolean> = _isSignedIn
+
+    private val authStateListener = FirebaseAuth.AuthStateListener {
+        _isSignedIn.value = it.currentUser != null
+    }
+
+    init {
+        firebaseAuth.addAuthStateListener(authStateListener)
+    }
 
     fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>) {
-        try {
-            val account = task.getResult(ApiException::class.java)!!
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            firebaseAuth.signInWithCredential(credential)
-        } catch (e: ApiException) {
-            // Google Sign In failed, update UI appropriately
-            // ...
-        }
+        repository.handleGoogleSignInResult(task)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        firebaseAuth.removeAuthStateListener(authStateListener)
     }
 }

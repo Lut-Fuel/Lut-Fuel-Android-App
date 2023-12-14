@@ -5,13 +5,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import id.lutfuel.app.BuildConfig
 import id.lutfuel.app.LutFuelApp
-import id.lutfuel.app.R
 import id.lutfuel.app.data.api.ApiService
 import id.lutfuel.app.data.repository.LutFuelRepository
 import okhttp3.OkHttpClient
@@ -48,7 +49,7 @@ object AppModule {
     fun provideGoogleSignInClient(app: Application): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
-            .requestIdToken(app.getString(R.string.oauth_client_id))
+            .requestIdToken(BuildConfig.oauthClientId)
             .requestId()
             .requestProfile()
             .build()
@@ -61,5 +62,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideLutFuelRepository(apiService: ApiService) = LutFuelRepository(apiService)
+    fun provideLutFuelRepository(
+        apiService: ApiService,
+        firebaseAuth: FirebaseAuth,
+        googleSignInClient: GoogleSignInClient
+    ) =
+        LutFuelRepository(apiService, firebaseAuth, googleSignInClient)
 }

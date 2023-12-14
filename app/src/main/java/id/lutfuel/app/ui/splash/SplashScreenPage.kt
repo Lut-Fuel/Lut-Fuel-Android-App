@@ -26,8 +26,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import id.lutfuel.app.R
 import id.lutfuel.app.core.theme.LutFuelTheme
-import id.lutfuel.app.destinations.BottomNavBarPageDestination
-import id.lutfuel.app.destinations.OnboardingPageDestination
+import id.lutfuel.app.ui.destinations.BottomNavBarPageDestination
+import id.lutfuel.app.ui.destinations.OnboardingPageDestination
 
 @RootNavGraph(start = true)
 @Destination
