@@ -8,12 +8,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import id.lutfuel.app.core.theme.LutFuelTheme
 
 @Composable
+@Destination
 fun ProfilePage(
-    viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: ProfileViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
+//    TODO: Add profile page
     Column {
         Text(text = Firebase.auth.currentUser?.email ?: "No Email")
         Button(onClick = {
@@ -28,6 +34,6 @@ fun ProfilePage(
 @Composable
 fun ProfilePagePreview() {
     LutFuelTheme {
-        ProfilePage()
+        ProfilePage(navigator = EmptyDestinationsNavigator)
     }
 }

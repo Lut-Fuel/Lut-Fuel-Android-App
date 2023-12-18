@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -37,7 +38,7 @@ object AppModule {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl("https://lut-fuel-backend-tcpz3v6bgq-et.a.run.app/dummy/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -59,6 +60,11 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirebaseAuth() = Firebase.auth
+
+    @Provides
+    @Singleton
+    fun provideFuseLocationProviderClient(app: Application) =
+        LocationServices.getFusedLocationProviderClient(app)
 
     @Provides
     @Singleton

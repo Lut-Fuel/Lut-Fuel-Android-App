@@ -28,8 +28,12 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import id.lutfuel.app.core.theme.LutFuelColor
 import id.lutfuel.app.ui.destinations.OnboardingPageDestination
+import id.lutfuel.app.ui.destinations.SelectLocationPageDestination
+import id.lutfuel.app.ui.history.HistoryPage
+import id.lutfuel.app.ui.home.HomePage
 import id.lutfuel.app.ui.maps.MapsPage
 import id.lutfuel.app.ui.profile.ProfilePage
+
 
 @Destination
 @Composable
@@ -52,7 +56,9 @@ fun BottomNavBarPage(
             FloatingActionButton(
                 containerColor = LutFuelColor.primaryDefault,
                 contentColor = LutFuelColor.primaryWhite,
-                onClick = { /*TODO*/ }
+                onClick = {
+                    navigator.navigate(SelectLocationPageDestination)
+                }
             ) {
                 Text(
                     text = "Start Trip",
@@ -107,10 +113,10 @@ fun BottomNavBarPage(
                 .padding(innerPadding)
         ) {
             when (navbarIndex) {
-                0 -> Text(text = "Home")
-                1 -> Text(text = "History")
-                2 -> MapsPage()
-                3 -> ProfilePage()
+                0 -> HomePage(navigator = navigator)
+                1 -> HistoryPage(navigator = navigator)
+                2 -> MapsPage(navigator = navigator)
+                3 -> ProfilePage(navigator = navigator)
             }
         }
     }

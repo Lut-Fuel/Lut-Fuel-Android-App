@@ -6,6 +6,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.21-1.0.15"
     id("com.google.gms.google-services")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -81,7 +82,6 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
     kapt("com.google.dagger:hilt-compiler:2.49")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-
     // Networking
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -98,6 +98,18 @@ dependencies {
 
     // Google Maps
     implementation("com.google.maps.android:maps-compose:4.3.0")
+    implementation("com.google.maps.android:android-maps-utils:3.8.0")
+    implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
+
+    // Location
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-svg:2.5.0")
+
+    // Permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.33.2-alpha")
 }
 
 kapt {

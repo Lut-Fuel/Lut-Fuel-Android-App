@@ -1,18 +1,14 @@
-package id.lutfuel.app.ui.maps
+package id.lutfuel.app.ui.history
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.google.maps.android.compose.GoogleMap
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
-fun MapsPage(
+fun HistoryPage(
     navigator: DestinationsNavigator
 ) {
-    GoogleMap(
-        modifier = Modifier.fillMaxSize()
-    )
+    Text(text = "History Page")
 }
