@@ -38,7 +38,7 @@ object AppModule {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://lut-fuel-backend-tcpz3v6bgq-et.a.run.app/dummy/")
+            .baseUrl("https://lutfuel-backend-submit-tcpz3v6bgq-et.a.run.app")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

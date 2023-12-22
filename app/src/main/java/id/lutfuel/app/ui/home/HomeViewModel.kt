@@ -30,6 +30,7 @@ class HomeViewModel @Inject constructor(
             val response = repository.getHome()
             _state.value = AsyncState.Success(response)
         } catch (e: Exception) {
+
             _state.value = AsyncState.Error(e)
         }
     }

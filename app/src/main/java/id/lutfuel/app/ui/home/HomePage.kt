@@ -45,6 +45,8 @@ import id.lutfuel.app.core.theme.LutFuelColor
 import id.lutfuel.app.core.theme.LutFuelTheme
 import id.lutfuel.app.data.model.response.Stats
 import id.lutfuel.app.ui.destinations.HistoryPageDestination
+import id.lutfuel.app.ui.destinations.TripDetailPageLoadDestination
+import id.lutfuel.app.ui.destinations.UserCarListPageDestination
 import id.lutfuel.app.ui.shared.widget.CarItemWidget
 import id.lutfuel.app.ui.shared.widget.DefaultAsyncStateBuilder
 import id.lutfuel.app.ui.shared.widget.TripItemWidget
@@ -79,7 +81,9 @@ fun HomePage(
 
                     Spacer(modifier = Modifier.height(12.dp))
                     UserStat(data.stats)
-                    SectionHeaders(label = "Cars") {}
+                    SectionHeaders(label = "Cars") {
+                        navigator.navigate(UserCarListPageDestination)
+                    }
                     data.cars.map { car ->
                         CarItemWidget(
                             fuelType = car.fuelType,
@@ -96,9 +100,11 @@ fun HomePage(
                             carName = trip.carName,
                             from = trip.from,
                             to = trip.destination,
-                            fuel = "${trip.fuelNeeded} Liters",
-                            cost = "Rp ${trip.cost}"
-                        )
+                            fuel = "${String.format("%.2f", trip.fuelNeeded)} Liters",
+                            cost = "Rp ${String.format("%.0f", trip.cost)}"
+                        ) {
+                            navigator.navigate(TripDetailPageLoadDestination(tripId = trip.id))
+                        }
                         Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
@@ -173,7 +179,7 @@ private fun UserStat(
                         modifier = Modifier.padding(end = 2.dp)
                     )
                     Text(
-                        text = stats.distanceTraveled.toString(),
+                        text = String.format("%.1f", stats.distanceTraveled),
                         style = TextStyle(
                             fontSize = 35.sp,
                             fontWeight = FontWeight(500),
@@ -220,7 +226,7 @@ private fun UserStat(
                         modifier = Modifier.padding(end = 2.dp)
                     )
                     Text(
-                        text = stats.fuelConsumed.toString(),
+                        text = String.format("%.1f", stats.fuelConsumed),
                         style = TextStyle(
                             fontSize = 35.sp,
                             fontWeight = FontWeight(500),

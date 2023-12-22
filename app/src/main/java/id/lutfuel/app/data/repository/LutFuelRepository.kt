@@ -7,8 +7,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import id.lutfuel.app.data.api.ApiService
+import id.lutfuel.app.data.model.request.AddUserCarRequest
 import id.lutfuel.app.data.model.request.CalculateCostRequest
+import id.lutfuel.app.data.model.response.CarListResponseItem
 import id.lutfuel.app.data.model.response.GetRoutesResponseItem
+import id.lutfuel.app.data.model.response.HistoryListResponseItem
 import id.lutfuel.app.data.model.response.HomeResponse
 import id.lutfuel.app.data.model.response.SearchLocationResponseItem
 import id.lutfuel.app.data.model.response.TripDetailResponse
@@ -70,6 +73,15 @@ class LutFuelRepository(
         ).data
     }
 
+    suspend fun addUsersCars(
+        request: AddUserCarRequest
+    ): UsersCarListResponseItem {
+        return apiService.addUsersCars(
+            token = getTokenHeader(),
+            request = request
+        ).data
+    }
+
     suspend fun calculateCost(
         request: CalculateCostRequest
     ): TripDetailResponse {
@@ -85,4 +97,25 @@ class LutFuelRepository(
             id = id
         ).data
     }
+
+    suspend fun searchCar(query: String): List<CarListResponseItem> {
+        return apiService.searchCar(
+            token = getTokenHeader(),
+            query = query
+        ).data
+    }
+
+    suspend fun getHistories(): List<HistoryListResponseItem> {
+        return apiService.getHistories(
+            token = getTokenHeader()
+        ).data
+    }
+
+    suspend fun getHistoryDetail(id: Int): TripDetailResponse {
+        return apiService.getHistoryDetail(
+            token = getTokenHeader(),
+            id = id
+        ).data
+    }
+
 }

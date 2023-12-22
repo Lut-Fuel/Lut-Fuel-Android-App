@@ -1,8 +1,11 @@
 package id.lutfuel.app.data.api
 
+import id.lutfuel.app.data.model.request.AddUserCarRequest
 import id.lutfuel.app.data.model.request.CalculateCostRequest
 import id.lutfuel.app.data.model.response.BaseResponse
+import id.lutfuel.app.data.model.response.CarListResponseItem
 import id.lutfuel.app.data.model.response.GetRoutesResponseItem
+import id.lutfuel.app.data.model.response.HistoryListResponseItem
 import id.lutfuel.app.data.model.response.HomeResponse
 import id.lutfuel.app.data.model.response.PostItem
 import id.lutfuel.app.data.model.response.SearchLocationResponseItem
@@ -44,6 +47,12 @@ interface ApiService {
         @Header("Authorization") token: String
     ): BaseResponse<List<UsersCarListResponseItem>>
 
+    @POST("users-car")
+    suspend fun addUsersCars(
+        @Header("Authorization") token: String,
+        @Body request: AddUserCarRequest
+    ): BaseResponse<UsersCarListResponseItem>
+
     @POST("calculate-cost")
     suspend fun calculateCost(
         @Header("Authorization") token: String,
@@ -52,6 +61,23 @@ interface ApiService {
 
     @GET("history/{id}")
     suspend fun historyDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): BaseResponse<TripDetailResponse>
+
+    @GET("cars/search")
+    suspend fun searchCar(
+        @Header("Authorization") token: String,
+        @Query("q") query: String
+    ): BaseResponse<List<CarListResponseItem>>
+
+    @GET("history")
+    suspend fun getHistories(
+        @Header("Authorization") token: String
+    ): BaseResponse<List<HistoryListResponseItem>>
+
+    @GET("history/{id}")
+    suspend fun getHistoryDetail(
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): BaseResponse<TripDetailResponse>

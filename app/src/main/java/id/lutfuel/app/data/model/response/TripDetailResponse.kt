@@ -50,8 +50,29 @@ data class TripDetailResponse(
     val power: String,
 
     @field:SerializedName("totalCost")
-    val totalCost: Int,
+    val totalCost: Double,
 
     @field:SerializedName("fuelCost")
-    val fuelCost: Int
-) : Parcelable
+    val fuelCost: Double
+) : Parcelable {
+    companion object {
+        val dummy = TripDetailResponse(
+            engineVolume = "1.5",
+            distance = 100.0,
+            carName = "Honda Jazz",
+            destination = "Jakarta",
+            weight = "100",
+            carCustomName = "Jazz",
+            cyliner = "4",
+            tolls = true,
+            fuelNeeded = 10.0,
+            tollCost = 10000,
+            fuelType = "Pertalite",
+            from = "Bandung",
+            id = 1,
+            power = "100",
+            totalCost = 100000.0,
+            fuelCost = 90000.0
+        )
+    }
+}

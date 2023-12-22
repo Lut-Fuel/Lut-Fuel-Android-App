@@ -7,19 +7,25 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class CalculateCostRequest(
 
-    @field:SerializedName("fromLongitude")
+    @field:SerializedName("fromLang")
     val fromLongitude: Double,
 
     @field:SerializedName("distance")
     val distance: Double,
 
-    @field:SerializedName("fromLatitude")
+    @field:SerializedName("fromLocation")
+    val fromLocation: String,
+
+    @field:SerializedName("fromLat")
     val fromLatitude: Double,
 
-    @field:SerializedName("destinationLatitude")
+    @field:SerializedName("destination")
+    val destination: String,
+
+    @field:SerializedName("destinationLat")
     val destinationLatitude: Double,
 
-    @field:SerializedName("destinationLongitude")
+    @field:SerializedName("destinationLang")
     val destinationLongitude: Double,
 
     @field:SerializedName("userCarId")

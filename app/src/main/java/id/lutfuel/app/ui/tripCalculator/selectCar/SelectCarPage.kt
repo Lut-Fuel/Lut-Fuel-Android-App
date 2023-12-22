@@ -40,6 +40,8 @@ data class SelectCarDestinationArguments(
     val destinationLongitude: Double,
     val distance: Double,
     val tolls: Boolean,
+    val from: String,
+    val destination: String
 ) : Parcelable
 
 @Destination
@@ -50,7 +52,7 @@ fun SelectCarPage(
     viewModel: SelectCarViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    Column (
+    Column(
         modifier = Modifier.fillMaxSize()
     ) {
         Box(
@@ -72,7 +74,7 @@ fun SelectCarPage(
                     )
             )
         }
-        DefaultAsyncStateBuilder(state = state.usersCars) {cars ->
+        DefaultAsyncStateBuilder(state = state.usersCars) { cars ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -90,7 +92,9 @@ fun SelectCarPage(
                                     destinationLongitude = arguments.destinationLongitude,
                                     distance = arguments.distance,
                                     tolls = arguments.tolls,
-                                    userCarId = car.id
+                                    userCarId = car.id,
+                                    fromLocation = arguments.from,
+                                    destination = arguments.destination
                                 )
                             )
                         )
@@ -98,7 +102,6 @@ fun SelectCarPage(
                 }
             }
         }
-
 
 
     }

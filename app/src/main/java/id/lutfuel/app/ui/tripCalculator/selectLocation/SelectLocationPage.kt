@@ -290,6 +290,8 @@ fun SelectLocationFooter(
                                     destinationLongitude = state.destination?.longitude ?: 0.0,
                                     distance = (state.routes!! as AsyncState.Success).data.first { it.id == state.selectedRouteId }.distance,
                                     tolls = (state.routes as AsyncState.Success).data.first { it.id == state.selectedRouteId }.id == 0,
+                                    from = state.from?.name ?: "",
+                                    destination = state.destination?.name ?: ""
                                 )
                             )
                         )

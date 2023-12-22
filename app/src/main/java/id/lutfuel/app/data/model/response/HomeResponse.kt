@@ -4,51 +4,51 @@ import com.google.gson.annotations.SerializedName
 
 data class HomeResponse(
 
-	@field:SerializedName("cars")
-	val cars: List<CarsItem>,
+    @field:SerializedName("cars")
+    val cars: List<CarsItem>,
 
-	@field:SerializedName("stats")
-	val stats: Stats,
+    @field:SerializedName("stats")
+    val stats: Stats,
 
-	@field:SerializedName("history")
-	val history: List<HistoryItem>
+    @field:SerializedName("history")
+    val history: List<HistoryItem>
 )
 
 data class HistoryItem(
 
-	@field:SerializedName("fuelNeeded")
-	val fuelNeeded: Any,
+    @field:SerializedName("fuelNeeded")
+    val fuelNeeded: Double,
 
-	@field:SerializedName("cost")
-	val cost: Int,
+    @field:SerializedName("cost")
+    val cost: Double,
 
-	@field:SerializedName("carName")
-	val carName: String,
+    @field:SerializedName("carName")
+    val carName: String,
 
-	@field:SerializedName("destination")
-	val destination: String,
+    @field:SerializedName("destination")
+    val destination: String,
 
-	@field:SerializedName("from")
-	val from: String,
+    @field:SerializedName("from")
+    val from: String,
 
-	@field:SerializedName("id")
-	val id: Int
+    @field:SerializedName("id")
+    val id: Int
 )
 
 data class Stats(
 
-	@field:SerializedName("fuelConsumed")
-	val fuelConsumed: Any,
+    @field:SerializedName("fuelConsumed")
+    val fuelConsumed: Any,
 
-	@field:SerializedName("distanceTraveled")
-	val distanceTraveled: Any
+    @field:SerializedName("distanceTraveled")
+    val distanceTraveled: Any
 )
 
 data class CarsItem(
 
-	@field:SerializedName("fuelType")
-	val fuelType: String,
+    @field:SerializedName("fuelType")
+    val fuelType: String,
 
-	@field:SerializedName("customName")
-	val customName: String
+    @field:SerializedName("customName")
+    val customName: String
 )

@@ -1,6 +1,7 @@
 package id.lutfuel.app.ui.shared.widget
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,6 +42,7 @@ fun TripItemWidget(
 ) {
     Box(
         modifier = Modifier
+            .clickable { onClick() }
             .shadow(
                 elevation = 10.dp,
                 spotColor = Color(0x14000463),
